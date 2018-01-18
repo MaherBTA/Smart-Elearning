@@ -9,11 +9,11 @@ e-learning application in this directory:
 
     $ git clone https://github.com/MaherBTA/Smart_Elearning
     $ cd Smart_Elearning
-    $ virtualenv venv
-    $ source ./venv/bin/activate
-    $ pip install -r requirements
-    $ python manage.py migrate
-    $ python manage.py runserver
+    $ virtualenv -p /usr/bin/python3 py3env
+    $ source py3env/bin/activate
+    $ pip3 install -r requirements
+    $ python3 manage.py migrate
+    $ python3 manage.py runserver
 
 * Initial data supports 3 types of users for testing purposes:
     * User (username=user, password=letmein123)
