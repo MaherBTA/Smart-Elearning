@@ -24,11 +24,13 @@ from nltk.corpus import stopwords
 
 from scipy.sparse import hstack
 
+nltk.data.path.append(os.getcwd()+"/nltk_data");
+
 # Download nltk.corpus firstly , 
-nltk.download(info_or_id='punkt', download_dir='/home/sneaky/nltk_data')
-nltk.download(info_or_id='averaged_perceptron_tagger', download_dir='/home/sneaky/nltk_data')
-nltk.download(info_or_id='stopwords', download_dir='/home/sneaky/nltk_data')
-nltk.download(info_or_id='wordnet', download_dir='/home/sneaky/nltk_data')
+nltk.download(info_or_id='punkt')
+nltk.download(info_or_id='averaged_perceptron_tagger')
+nltk.download(info_or_id='stopwords')
+nltk.download(info_or_id='wordnet')
 
 
 
