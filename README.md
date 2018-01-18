@@ -7,7 +7,7 @@ E-Learning was designed to provide pleasant experience for users.
 Assuming you use virtualenv, follow these steps to download and run the
 e-learning application in this directory:
 
-    $ git clone https://github.com/MaherBTA/Smart_Elaerning
+    $ git clone https://github.com/MaherBTA/Smart_Elearning
     $ cd eLearning
     $ virtualenv venv
     $ source ./venv/bin/activate
