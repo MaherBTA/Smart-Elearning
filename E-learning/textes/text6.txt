@@ -1,0 +1,134 @@
+Previously, we saw that, to emit a transmission
+request, terminals must first register with the eNodeB.
+In this video, we’ll see how that works.
+In a network, rules must define how several users share
+the same channel preventing interferences.
+These rules are called access protocols.
+They serve to define who can talk, when, and how.
+There are 2 groups of access protocols.
+In the first group, “contention-based access” protocols,
+we speculate that the chances of a collision are very small.
+Everyone can transmit whenever they want.
+Because there can still be interferences, we create a way
+to know whether the message was received or not.
+For example, using acknowledgements.
+If a transmission fails, we can try again later.
+For example Wi-Fi works like this.
+The other group is called “reservation-based access” protocols.
+The resource is broken into small elements
+that are allocated to senders.
+For example, each user will have the right to a turn to
+talk for one millisecond.
+This allocation can be static, when it is defined at the start;
+or dynamic - it can be  modified according to needs.
+ LTE belongs to this group.
+And we have already seen that the resources are divided
+by time and by frequency and that they are allocated dynamically.
+On the downlink, there’s no problem, since all
+transmissions are made by the eNodeB.
+On the uplink, terminals must first send a request before
+being allocated resources.
+These requests go on the uplink control channel on
+which each terminal has the right to a turn to speak.
+This assumes that terminals are registered with the base station.
+ For that, they must have been able to transmit
+once to make themselves known.
+The solution in LTE was to
+introduce a bit of contention within the uplink.
+On the uplink, a group of resources is reserved so that
+new terminals can indicate their presence.
+This group of resources constitutes a new physical
+channel called PRACH, or Physical Random Access Channel.
+It is made up of 6 adjacent resource blocks pairs
+and occurs every one to 20 milliseconds
+depending on the eNodeB parameters.
+The access to this channel is done using a particular access technique
+that is called CDMA Code Division Multiple Access.
+In CDMA, transmitters encode their transmissions with sequences.
+The mathematical properties of these
+sequences are such that, if 2 devices transmit
+simultaneously with different sequences, the receiver can
+still distinguish between the two transmissions.
+Another detail about this channel:
+on the allocated one millisecond, only one symbol is
+transmitted and this symbol uses all 6 resource blocks.
+So, when a terminal transmits on this channel,
+it actually send only one symbol.
+But, the base station detects that something was
+transmitted, and infers that a new terminal wants to connect.
+Even though the terminal does not transmit data, the base
+station can identify the particular sequence used by the
+mobile and associate this terminal with this sequence.
+There are 64 sequences available, so, there could
+be up to 64 simultaneous requests.
+We will explain later what happens
+if 2 users use the same sequence at the same time.
+Let's first see what happens when a new terminal enters the cell.
+We saw previously that, to allocate resources, the eNodeB
+gives each terminal an RNTI.
+This is the procedure: the terminal that arrives listens
+to the eNodeB to identify when the Random
+access channel is scheduled.
+It then chooses, at random, one of the 64 sequences,
+and transmits on the random-access channel, using
+this sequence at the right moment.
+The eNodeB detects this transmission and the sequence.
+It does not yet know the identity of the mobile, but
+will use this sequence to temporarily identify the
+terminal and will then assign it an RNTI.
+However, at this point this RNTI is only known by the eNodeB.
+So, the eNodeB cannot use it as an address to send a message to the terminal.
+Instead, it will use another identifier: the RA-RNTI or
+Random Access RNTI.
+This identifier is calculated using the sequence
+already used by the mobile.
+So, the terminal, just like the eNodeB,
+can calculate this RA-RNTI.
+Now, the eNodeB transmits
+a message to the mobile
+to send a few parameters, including the assigned RNTI
+and it will use the RA-RNTI as the
+destination address of this message.
+The eNodeB also allocates a resource to that terminal so
+that it can send a connection request.
+When the terminal receives this message, it can transmit
+its transmission request on the allocated resource using
+the given RNTI.
+The rest of the connection procedure is described in
+another week of this MOOC.
+I said I would explain what happens when 2
+UEs access the contention channel with the same sequence.
+Each terminal goes through the random-access procedure
+thinking it is the only one.
+The eNodeB will note one request, thinking it is the only
+one and will then go through the procedure we just saw:
+it will assign an RNTI and allocate a transmission resource,
+and send this information to the mobile.
+The 2 phones will receive this message thinking it is meant for them,
+each will transmit a connection
+request and an interference will occur.
+As for interference, 2 cases are possible.
+In the first case, the base station is not able
+to decode either of the messages and will not respond.
+The terminals will then repeat the procedure later.
+In the other case, the base station can decode one of the messages.
+That’s what we see here.
+It believes there is only one user and continues the procedure.
+This is a problem because we don’t know which of the 2
+terminals was registered.
+To solve this problem, the standard dictates that the
+eNodeB must send to the UE an echo
+of its connection request.
+Because the connection request contains the identity of the mobile
+ the terminal can compare  its identity to the one in this copy.
+If it is its own identity,
+it continues the connection procedure.
+Otherwise it stops the procedure and starts again later.
+In a nutshell, LTE is a reservation-based protocol.
+Allocation is managed dynamically by the eNodeB.
+The registered terminals have the
+right to use the control channel to send their transmission requests.
+To register in a new cell, the terminals use the
+random-access channel.
+This channel is contention based.
+And a protocol is used to resolve  ambiguities resulting from collisions.

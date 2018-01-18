@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+  <!-- Chapter css is in course core css -->
+  <link href="{% static "css/course.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+	var settings={{ settings }}
+	var progress={{ progress }}
+  function reduce_dim(progress){
+	  var mean=[0,0,0,0,0,0]
+	  for (i = 0; i < progress.length; i++) {
+		 
+		mean[0]+=progress[i][0]
+		mean[1]+=progress[i][1]
+		mean[2]+=progress[i][2]
+		mean[3]+=progress[i][3]
+		mean[4]+=progress[i][4]
+		mean[5]+=progress[i][5]		  
+	  }
+	
+	mean[0]=mean[0]/progress.length
+	mean[1]=mean[1]/progress.length
+	mean[2]=mean[2]/progress.length
+	mean[3]=mean[3]/progress.length
+	mean[4]=mean[4]/progress.length
+	return mean
+  }
+  function sleep(ms) {
+	  var start = new Date().getTime(),
+	    expire = start + ms;
+	  while (new Date().getTime() < expire) {}
+	  return;
+	}
+  function setSettings() {
+		settings = [$('#settingsForm').serializeArray()[1].value,$('#settingsForm').serializeArray()[0].value];
+		
+		if('{{ predicted_question }}'=='')
+			{
+			nextQuestion(0,0,'multi',0)
+			}		
+			}
+  function nextQuestion(questionid,correctAnswer,questiontype,questionlevel) {
+	  temp=[]
+	  temp[0]=parseFloat(settings[1])
+	  temp[1]=parseFloat(settings[0])
+	  if(questiontype=='multi'){
+		temp[2]=2
+	  }else{
+	  if(questiontype=='problem'){
+			temp[2]=1
+		  }else{
+			  temp[2]=3
+		  }
+	  }
+	  temp[3]=parseFloat(questionlevel)
+	  if(correctAnswer==$('input[name=answer_'+questionid+']:checked').val()){
+		  temp[4]=1
+	  }else{
+		  temp[4]=0 
+	  }
+	  temp[5]=parseFloat(questionid)
+	  progress.push(temp)
+	  progress=reduce_dim(progress)
+	  
+	  window.location.replace('/courses/student/nex t/'+progress[0]+'/'+progress[1]+'/'+progress[2]+'/'+progress[3]+'/'+progress[4]+'/'+'{{ quiz_id }}');
+	}
+  	function submitAnswer(correctAnswer,questionid){
+  		console.log(correctAnswer)
+  		console.log(questionid)
+  		console.log($('input[name=answer_'+questionid+']:checked').val())
+  	  if(correctAnswer==$('input[name=answer_'+questionid+']:checked').val()){
+		  $("#successMessage").text('Your Answer Was Correct').css('color', 'green')
+	  }else{
+		  $("#successMessage").text('Your Answer Was Incorrect').css('color', 'red')
+	  }
+  	}
+  $( document ).ready(function() {
+	  $("#question_{{ predicted_question }}").show();
+	});
+  
+  </script>
+  {% include 'breadcrumb.html' %}
+
+
+<h2 align="center">{{ quiz.title }}</h2>
+<p>{{ quiz.description }}</p>
+<br>
+<div class="container">
+ <div class="row">
+ <div class="col-md-5">
+ <h3>Settings </h3>
+ <br>
+  <form id='settingsForm'>
+  
+  <h4>Select Level </h4>
+    <label class="radio-inline">
+      <input type="radio" name="level" value="1">Level 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="level" value="2">Level 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="level"value="3" >Level 3
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="level" value="4">Level 4
+    </label>
+    <br>
+     <br>
+   <h4>Select Type </h4>
+    <label class="radio-inline">
+      <input type="radio" name="type" value="1">Problem
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="type" value="2">Multi Choice
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="type" value="3">Redaction
+    </label>
+    <br>
+    <br>
+    <label>
+    Select Tags Separated with Comma
+    <input>
+    </label>
+    <br>
+    <input onclick="setSettings()" type=button value="Save Settings" >
+  </form>
+  </div>
+  <div class="col-md-7">
+	<form style="text-align: center;" name="quiz" id='questionForm'>
+		{% for instance in question_answers %}
+		<br>
+		<h3 id="successMessage"></h3>
+		<div id="question_{{ instance.0.id }}" style="display: none;">
+		<h4>Type: {{ instance.0.type }} / Level:  {{ instance.0.level }}</h4>
+			<h2>{{ instance.0.content|safe }}</h2> 
+			<ul style="margin-top: 1pt;">
+			{% for answer in instance.1 %}
+			  <li><input value="{{ answer.id }}" name='answer_{{ instance.0.id }}' type="radio">{{ answer.answer }}></li>
+			{% endfor %}
+			 <input value="Submit Answer" onclick="submitAnswer('{{ instance.0.correctAnswer }}','{{ instance.0.id }}')" type='button'>
+			 <input value="Next Question" onclick="nextQuestion('{{ instance.0.id }}','{{ instance.0.correctAnswer }}','{{ instance.0.type }}','{{ instance.0.level }}')" type='button'>
+			 </ul>
+		     <br>
+		 </div>
+		 {% endfor %}
+	</form>
+	</div>
+</div>
+</div>
+{% endblock %}

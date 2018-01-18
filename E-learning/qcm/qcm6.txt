@@ -1,0 +1,27 @@
+ Which of the following suggestions are correct (2 answers expected)?
+In a contention protocol, there can be collisions
+In a contention protocol, there cannot be collisions
+In a reservation protocol, there can be collisions
+In a reservation protocol, there cannot be collisions
+
+
+LTE is mainly:
+a contention protocol
+a fixed reservation protocol
+a dynamic reservation protocol.
+
+The eNB is not allowed to transmit on the random access channel.
+True
+False.
+
+In order to get known by the eNB, a newcomer transmits its TMSI on the random access channel
+True
+False correct.
+
+Let us consider two UEs that are connecting simultaneously. The request could succeed for both of them even if they use the same RA-RNTI
+True
+False.
+
+If the access requests of two different terminals collide, the conflict is resolved by the MME
+True
+False.

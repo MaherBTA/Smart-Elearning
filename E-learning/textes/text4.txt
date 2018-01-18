@@ -1,0 +1,134 @@
+Radio is always prone to disturbance.
+10-6, is an acceptable bit error rate in radio.
+This means that at 70 megabits
+per second we can have 70 errors per second.
+In the first video, we have seen that coding is used at
+the physical layer to correct some of these errors.
+But, how can we handle those that have not been corrected?
+This is one of the functions of the MAC layer, “Media Access Control”.
+Another function of the MAC layer is to let several
+services communicate with the same mobile at the same time.
+This function is called “Multiplexing”.
+In the second part of the video, we will present how it
+is managed by L. T. E.
+L. T. E uses error detection codes – called CRC : Cyclic Redundancy Check.
+These codes are calculated by the
+sender and appended at the end of the message.
+The receiver makes the same calculation.
+If it gets the same result, it knows that the data are correct.
+There are 3 possible cases:
+first, if the message is correct, then the
+receiver confirms the reception with a message called
+an “acknowledgement” or ACK.
+This message is sent on the control channel we spoke of
+in the previous video.
+In the second case, the data has been corrupted during transmission.
+The receiver informs the transmitter with a
+non-acknowledgement message, or NACK.
+The transmitter then resends the message and
+continues to do so until it receives a positive acknowledgement.
+In the last case,
+the transmitter that has sent a message has not received an acknowledgement.
+So, either the message or the acknowledgement got lost.
+Either way, something went wrong.
+So, if the receiver doesn’t receive
+any acknowledgement after a certain time,
+it tries to send the data again.
+If the message is still not received after a given number
+of attempts, the MAC layer gives up.
+Protocols on a higher level will probably make new
+attempts later on, but, for the MAC
+layer, these are considered as new data.
+This mechanism is called “Send and Wait A. R. Q.”
+“Send and Wait,” because the
+transmitter sends the data and waits for the response.
+And A. R. Q for “Automatic Repeat ReQuest.”
+This is the mechanism that
+retransmits automatically if no acknowledgment is received.
+Processing a message or an acknowledgement may take a certain time.
+That’s why the norm states that the recipient sends
+its acknowledgement 4 sub-frames after receiving the message.
+In the same way, after
+receiving this acknowledgement, the transmitter waits
+4 sub-frames before either repeating the message or
+sending a new one.
+The total cycle lasts
+8 sub-frames, or, 8 milliseconds.
+During this time, the transmitter does not transmit.
+This is the principle of "Send and wait.”
+To optimize resource consumption,
+L. T. E actually runs 8 Send and Wait processes in parallel.
+While the first process is blocked, waiting
+for its acknowledgement, another process can transmit data.
+And so on, until we have 8 processes in parallel.
+This is called “PARALLEL Send and Wait.”
+The problem with parallel Send and Wait is that it can cause de-sequencing.
+In this example, blocks 1,3 and 4
+were received correctly, but block 2 was lost.
+Block 2 will be re-sent 8 sub-frames later.
+So, the sequence delivered by the MAC layer to the higher
+level will be block 1, block 3, block 4, and finally block 2.
+The MAC layer does not deal
+with the re-sequencing.
+We will see in the next video that that is the role of the
+R. L. C layer which is right above the MAC layer.
+If you look at L. T. E.
+E documentation you will probably see the term HA. R. Q
+instead of A. R. Q.
+It is not too important but let’s take a quick
+look at this slight difference.
+The idea is that to increase
+error correction performances, the receiver stores
+all erroneous messages.
+This accumulation increases redundancy
+and thereby the possibility of getting the correct data.
+HA. R. Q stands for
+Hybrid A. R. Q. “Hybrid” because the MAC
+layer has to collaborate with the physical layer to let
+it know that the data it processes are actually
+repetitions of the same transport block.
+Now, let’s speak about another function of the MAC layer.
+You use your smart-phone for voice conversations as well
+as receiving emails or browsing web pages.
+And you may want these at the same time.
+But there is a single communication channel between the
+base station and your mobile.
+So, all this traffic has to be mixed over this pipe.
+This is what we call “MULTIPLEXING”.
+Before getting further, let me introduce some vocabulary.
+In the classical layered
+model of networks, data at the top
+of a layer are called “SDU” or
+“Service Data Units” and the data at the bottom
+are called “PDU” or “Protocol Data Units.”
+In our case, the MAC layer receives the MAC-SDUs
+and produces MAC-PDUs.
+Now, let’s talk about multiplexing.
+Data handled by the MAC layer are provided by the upper layer,
+R. L. C, they're provided through message queues.
+These queues are called logical channels.
+We will see in the next video that there are several of
+them, corresponding to different levels of service.
+Here, for example, is a channel dedicated to
+signaling (L. T. E internal control), another to voice
+and a last one for general data.
+The output of the MAC layer, the MAC_PDUs
+are the transport blocks that will be transmitted
+by the physical layer.
+To form the transport blocks, the MAC layer assembles
+the SDUs from the different logical channels.
+This is referred to as multiplexing because there are
+several incoming streams and only one outgoing.
+To help the receiver break down, or de-multiplex,
+the MAC layer adds headers that indicate where
+each message starts and to
+which logical channel they belong to.
+Padding can also be added
+to ensure that the size of the MAC_PDU is
+exactly the same size as the transport block to be transmitted.
+In short: as well as allocating resources, as seen in the previous video,
+the MAC layer ensures the reliability of
+transmission using HA. R. Q.
+It ensures retransmission in case of error.
+The MAC layer can also merge different data from
+different logical channels into the same transport block.

@@ -1,0 +1,22 @@
+We consider the configuration of the illustration above with a 4G terminal, the eNodeB, SGW and PGW of a mobile operator and the intermediate routers. The user visits a Web server with the address which uses the http protocol above TCP. An IP packet is sent by this server to the mobile terminal with the address We consider the packet sent by the PGW (through its interface on the EPC side).
+
+We use a network analyzer (such as wireshark) which filters the headers corresponding to the layers below IP. We suggest four configurations for what we can see on the analyzer.
+
+
+When we have a protocol stack with protocol P3 at some level and, just below, protocol P2, then below again, protocol P1, the final packet (after considering all the layers) first includes header P1, then header P2 and finally header P3 (in the transmission order). An analyzer displays the bytes in the order in which they are sent.
+
+ 
+
+Which configuration corresponds to what we can observe.
+
+
+What is the value of the destination address of the first IP header (in the transmission order).
+
+
+We now consider the destination address of the second IP header (in the transmission order), What is its value.
+
+
+This packet is received by the SGW and retransmitted, What is the value of the destination address of the first IP header (in the transmission order) of the packet sent by the SGW.
+
+
+We now consider the destination address of the second IP header. What is its value.

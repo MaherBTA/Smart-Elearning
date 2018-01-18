@@ -1,0 +1,41 @@
+RLC stands for:
+Rolex Learning Center
+Radio Layer Correction
+Radio Link Control correct
+Random Loss Correction.
+
+RLC systematically introduces a latency that is not insignificant.
+True
+False.
+
+The TM mode (Transparent Mode) is usually used to transport:
+specific signalling messages correct
+voice (VoIP)
+data files.
+
+The UM mode (Unacknowledged Mode) is usually used to transport:
+specific signalling messages
+voice (VoIP) 
+data files.
+
+The AM mode (Acknowledged Mode) is usually used to transport:
+specific signalling messages
+voice (VoIP)
+data files.
+
+The terminal chooses its operating mode (TM, UM or AM) upon connection in a cell
+True
+False.
+
+In the UM mode (Unacknowledged Mode), the receiver sends an acknowledgement each time it receives a message:
+True
+False.
+
+In the AM mode (Acknowledged Mode), the receiver sends an acknowledgement each time it receives a message:
+True
+False.
+
+In which mode(s) does RLC need sequence numbers?
+in the TM mode (Transparent Mode)
+in the UM mode (Unacknowledged Mode)
+in the AM mode (Acknowledged Mode). 

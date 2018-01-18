@@ -1,0 +1,124 @@
+In previous videos, we explained that
+resources are allocated dynamically.
+But how does the eNodeB inform the
+terminals of which resource is dedicated to which UE?
+In this video we will study the principles of allocation in L. T. E further.
+And then, we will have a look at
+underlying signalling exchanges.
+So at the end, you will understand
+how a terminal is informed that it is going to receive
+data and how he can ask the eNodeB
+for a resource to send data.
+There are three main rules about allocation in L. T. E.
+Firstly: everything is centralized by the eNode B for both the
+downlink and the uplink.
+So, a mobile cannot transmit if it has not been given permission.
+Secondly, as discussed in previous videos: resources are
+only allocated when there is an actual need to transmit.
+And thirdly: At each sub-frame, so every
+millisecond, the eNode B publishes an allocation
+table to inform the mobiles of the
+resource allocation for both the uplink and the downlink.
+Before continuing we have to make a point about addresses.
+Obviously, we need addresses to identify the terminals.
+We could use the same identifiers introduced in the
+previous lessons of this MOOC (IMSI, GUTI, and so on).
+But these are not really suited to our requirements
+as they are unique within the whole network.
+However, in our case, the geographic range is limited to
+one single cell, because the scheduling is
+handled independently by each eNodeB.
+And we need these addresses to be as short as possible,
+because they are used frequently.
+Remember that an allocation table is published every millisecond.
+So, L. T. E introduces a new identifier the RNTI:
+Radio Network Temporary Identifier.
+It is managed by the eNode B and valid only within its cell.
+When a terminal arrives in a cell, the eNode B assigns it
+a new RNTI.
+The RNTI is coded on 16 bits.
+This is much shorter than other identifiers but still
+allows for approximately  65 thousand mobiles per cell.
+Let’s look at how things work on the downlink, so when
+data is transferred TO the terminal.
+We have seen that the eNodeB can use one or several
+resource blocks per sub-frame to communicate with a given UE.
+At the beginning of the sub-frame, the eNodeB publishes
+a kind of map of the sub-frame to let terminals know
+which Resource Blocks hold data that are intended for them.
+This is what we will call “allocation table” in this MOOC.
+For this sub-frame, the allocation table
+here is published in the blue space.
+Resource blocks 12 and 13 here
+are allocated to the mobile with RNTI 63, this green mobile.
+In the same way, resource
+blocks 4 to 7 are allocated to
+the mobile number 62, the red one.
+One advantage of doing this is energy saving.
+If a mobile notices that no data is sent to him on this sub-frame,
+it can turns to standby mode until the next sub-frame.
+And even if it has to receive data, for example our green phone here,
+it can avoid wasting energy
+decoding data not intended for it and
+focus its efforts only on its own resource blocks.
+Now, let’s talk about uplink, so when a mobile needs to send data.
+Uplink uses the same principle as downlink.
+Resources are allocated by the eNodeB.
+And an allocation table is published at the same time as
+the table for the downlink.
+However, there are some differences because the eNode B
+does not know when the terminals need to transmit.
+So, before transmitting, the terminals first have to
+make a request to the eNodeB.
+It’s a bit of a paradox because, in order to transmit,
+the terminal has to transmit a request.
+We’ll see later on how this problem is solved.
+For the moment, just consider that the UE can send such a request.
+And that, in response, the eNode B allocates it a
+resource in the next allocation table.
+When the mobile receives this information, it has to
+prepare a transport block, to encode it, to modulate it,
+etc, as we have seen in the previous videos.
+So, the UE is not ready to transmit its message immediately.
+That’s why the allocation table published by the eNode B
+for the uplink is actually for the fourth upcoming sub-frame.
+In other words, for what is going to happen in 4 milliseconds.
+This graphic shows the L. T. E frame patterns for downlink and uplink.
+In both cases, resources are reserved to transmit control
+data and user data separately.
+On the downlink, the control channel is shown in blue.
+In particular, it transports the allocation tables of
+uplink and downlink.
+It uses the first resource elements of each sub-frame.
+This should remind you of the resource elements in purple
+when we saw Resource Blocks.
+The rest makes up the data channel that is used
+to transfer the user data.
+On the uplink,
+the control channel is displayed in gray.
+It is made up of the resource blocks situated at either end of the band.
+And resource blocks transporting data are
+located at the center of the band.
+Earlier, I told you I was going to explain how terminals
+can transmit a request to the base station, when they
+actually don’t have a resource to transmit.
+Well, they send their request on this uplink control channel.
+For this channel L. T. E, specifies a special access mechanism which gives
+the right to transmit, in turn, to each terminal of the cell.
+Just a quick word to explain that L. T. E generalizes the notion of “channel.”
+In fact, the standard defines numerous channels with
+rather barbarian acronyms.
+You can see here the names of channels, for example,
+PDSCH, PDCCH, PUCCH, etc.
+But, don’t worry.
+We won’t get down to that level of detail.
+For this course, just keep in mind that we differentiate
+between data channels and control channels.
+In a nutshell, allocation is managed by the eNode B for
+both uplink and downlink.
+And resources are only allocated when there is a need for transmission.
+Exchanges about allocation
+are made on dedicated control channels.
+On the uplink, the terminal must first make a request
+on the control channel, before being allocated resources,
+which can be used 4 sub-frames later.

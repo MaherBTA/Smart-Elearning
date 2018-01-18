@@ -1,0 +1,119 @@
+How can we transmit efficiently and very rapidly packets
+that can arrive from different PGateways and which are
+intended for different terminals?
+There’s a chance we will have to send them to different
+eNodeBs, so, how can we quickly handle and
+direct these packets towards the correct eNB?
+That is the question we are going to answer in this video.
+To truly understand this question, we need to remember
+that we have millions of users.
+They’re not all on the same eNode B.
+We have thousands or tens of thousands of eNode Bs.
+They’re not all served by the same serving gateway.
+But we have only a few packet gateways, in general
+2 or 3, perhaps up to 10.
+We have to be able to manage different tunnels.
+In this simple example,
+we can see that, between the P-Gateway and the S-Gateway,
+there are 2 tunnels.
+Packets for UE2
+should be forwarded by the SGW through
+the upper tunnel, which will lead to eNode B2
+and the packets for UE1 should be
+forwarded through the lower tunnel towards eNode B1.
+Therefore, the processing for packets coming from the Packet Gateway
+should be specific to the tunnel along which they are sent.
+We want to be able to do this processing very rapidly.
+If we leave the world of telecommunications for a moment…
+ We know that, when businesses communicate, each
+assigns a reference or file number to each communication.
+When they write to  each other regarding a
+certain subject, they add “Your reference”, the reference
+of the recipient and
+“Our reference”, the reference of the sender.
+In a way, we’ll follow the same principle in mobile networks.
+Each business can be seen as a node, for example, the Serving Gateway.
+The Serving Gateway has a certain
+number of tunnels that can be coming from other
+pieces of equipment.
+It will number the endpoint of each tunnel with
+a unique number, in this case 101-102-103-104 for
+the 4 tunnels.
+This number is called the TEID or Tunnel Endpoint Identifier.
+Each tunnel therefore has
+2 identifiers because each  tunnel has two endpoints.
+For example, consider this tunnel between
+the Serving Gateway and the Packet Gateway.
+From the point of view of the Serving Gateway, the TEID is 101.
+From the point of view of the Packet Gateway, it is 32,000.
+The numbering that each piece of equipment uses is
+unique, but there’s nothing preventing the
+same number being used by two different nodes.
+The TEID is coded over 32 bits or 4 bytes.
+ It should be put in each packet
+to facilitate processing.
+The first solution that we will see is to put the TEID
+allocated by the transmitter in the GTP header.
+If we take for example, a packet arriving at
+the P-Gateway, this packet is put into another packet
+and, on the GTP level, we will put the
+tunnel number in the header.
+If we put 16,538,
+the receiving entity, here the S-Gateway, should
+identify where the packet came from, since we’ve
+used the identification of the sender.
+Because each sender has his own
+identification system, the S-Gateway needs to find the
+sender of the packet, and the local tunnel identifier
+corresponding to this pair.
+The processing is complicated because the receiver has to
+know the TEID used by the node at the
+other end of the tunnel.
+It must therefore analyze the TEID
+and the source address.
+This isn’t a very good method.
+Let’s look at the second possibility,
+ which would be to put the TEID
+allocated by the receiver in the header.
+Here we have a process that is managed by the sender.
+If the sender wants to send a packet
+in a tunnel locally identified as 16,538,
+he should find the corresponding TEID allocated by
+the Serving Gateway.
+In my example it converts 16,538 into
+102 in order to transmit a packet with
+the TEID that the receiver uses.
+The advantage of this solution is that the receiver has
+no conversion to do.
+It receives the packet on tunnel 102 and can process it.
+We can note that, here,  there is necessarily uniqueness.
+Because 102 was allocated by
+the Serving Gateway, there will only be one 102 value
+for a given tunnel arriving at the Serving Gateway.
+There is a slight increase in complexity for the
+transmitter but considerable simplification
+for the receiver.
+The third possibility is the one we saw in the example
+with the letters: put two TEIDs: 102 and 16,538.
+Because we’ve put both,
+on the receiver side, we can just  use the recipient one: 102.
+So, we have simple processing on the receiver side,
+that the header is a bit longer.
+The advantage is, if one piece of equipment wants to
+change the value of TEID on the fly, it can do it
+without additional processing.
+In other words, if the PGW wants to go from 16,538
+to 33 for some reason or other, it just needs to
+replace 33 in the header and the receiver will say, “Aha!
+The other endpoint has changed.
+I’ll store this new value for the tunnel”.
+This solution is not retained for GTP but it is used in a
+protocol between the eNode B and the MME that we will see
+in another video.
+To summarize, each end of each tunnel is identified by a
+TEID, Tunnel Endpoint Identifier.
+The TEID is allocated by the node that corresponds to
+each end of the tunnel and is locally unique.
+When a packet is sent through a tunnel,
+the TEID allocated by the receiver is put in the
+GTP header by the sender.

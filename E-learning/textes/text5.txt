@@ -1,0 +1,129 @@
+We saw in the last video that the MAC layer enables
+several applications to share the same radio connection.
+But what if, these applications don’t have the same
+requirements in terms of latency or reliability?
+Or, in other words, different requirements
+of Quality of Service.
+In L. T. E, it is the R. L. C layer’s role
+ to provide such features.
+R. L. C, or Radio Link Control is
+just above the MAC layer.
+Let’s see how it works.
+What is the definition of the quality of service, or QoS in short?
+It is the capability of the network to give applications
+a level of service corresponding to their needs, based on
+different criteria such as delay,
+throughput, or error rate.
+The thing to understand about QoS is that it is a compromise.
+For example, it is possible to
+increase the reliability, by re-transmitting lost messages.
+But, of course, it increases the delay.
+The right balance depends on the application.
+For a voice communication, we prefer to have a short
+delay even if we have some losses.
+Whereas, for bank transaction, we do not
+tolerate error and the delay is not that important.
+In the previous lesson, we saw some limitations of the MAC layer.
+For example, after a certain number of failures, the MAC
+layer gives up retransmitting messages.
+We also saw that H. A. R. Q
+can introduce de-sequencing in messages.
+Also, the MAC layer does not take care of the message segmentation.
+That is to say, chopping the messages into smaller blocks
+that can be inserted into transport blocks.
+The R. L. C layer offers services to increase the reliability
+of exchanges, to re-order messages, and
+to manage segmentation.
+But this is done at the expense of latency.
+This is why these services are optional.
+They can be used for certain data
+streams and de-activated for others.
+R. L. C proposes 3 modes.
+The simplest is transparent mode or TM.
+ In this case, R. L. C does nothing.
+ Because there is no segmentation,
+this mode is reserved for short messages.
+It is mainly used to transport  signalling messages of L. T. E.
+The second mode is un-acknowledged Mode or UM.
+It takes care of re-sequencing received blocks as
+well as segmenting and concatenating messages
+depending on the needs of the MAC layer.
+The impact of this mode on latency is low
+but it does not improve reliability.
+It is therefore adapted to real time applications such as
+voice or video communication.
+The third mode is Acknowledged Mode or AM.
+It offers the same services as UM
+and adds a system to retransmit lost packets
+which increases reliability.
+But, of course, this is done at the cost of latency.
+It is therefore best adapted to applications such as file
+transfer and Web browsing.
+In terms of architecture, several R. L. C
+instances can run in parallel for a given link.
+For example, a Voice communication over IP
+ can use an R. L. C instance in UM
+while files are being transferred with another instance in AM.
+As discussed previously, the MAC layer picks up
+packets on both instances depending on the parametrized
+priorities and throughput targets.
+How does the un-acknowledged mode work?
+When it receives a packet from the upper layer,
+R. L. C saves it in a buffer
+while waiting for the MAC layer to request a MAC-SDU.
+When the MAC layer requests a MAC-SDU,
+it specifies the size of the MAC-SDU it is expecting.
+R. L. C then assembles the stored packets to make
+an R. L. C-PDU of the requested size.
+To do that, it can concatenate packets,
+or split them to reach
+the specified size.
+R. L. C also adds headers to tell the receiver where to
+find the different fragments and which
+R. L. C instance they belong to.
+These headers also contain sequence numbers
+that will enable putting blocks in the correct order if
+they are de-sequenced by H. A. R. Q.
+Let’s stop for a second and look at two things.
+Firstly, the MAC layer can regroup in the
+same transport block
+SDUs from different R. L. C instances.
+Secondly, when trying to
+retrieve the correct sequence of messages,
+R. L. C in UM can remain blocked
+if an intermediate segment never arrives.
+To avoid this, after a certain time,
+ R. L. C will eventually consider this packet as lost and
+will go on to the next.
+Acknowledged Mode works in the same way as UM.
+But it also manages the repetition of lost messages.
+To do that, R. L. C memorizes
+the MAC-SDUs it delivers to the MAC layer, so that it
+will be able to resend them if necessary.
+It regularly asks the recipient
+to send the status of the messages it has received.
+The receiver answers to this request by sending
+an R. L. C signaling message tha t is transferred on the data channel.
+Let’s note in passing that this is the first time we see
+this case in the radio interface.
+Until now, all control exchanges were made on
+dedicated control channels.
+But now, the answer from the recipient must be separated
+from the data flow and  delivered to the R. L. C controller.
+The controller can then erase from its memory the messages
+that are being correctly received and resend ones that have not
+be delivered to the recipient.
+Thus, for Acknowledged Mode, it must be the same body
+that manages the transmission and the reception part
+while in UM, these processes are independent.
+To summaries, the R. L. C layer
+is located above the MAC layer.
+It takes care of :
+Re-sequencing of blocks held up by H. A. R. Q.
+It also manage the concatenation and segmentation of
+the data to fit the size requested by the MAC layer.
+And also handles the retransmission of lost blocks.
+Quality of service is a compromise,
+notably between reliability and delay.
+R. L. C defines three modes:
+transparent mode, un-acknowledged mode and acknowledged mode.

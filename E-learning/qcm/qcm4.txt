@@ -1,0 +1,29 @@
+The MAC layer processes errors at the level of:
+the resource elements (RE)
+the resource blocks (RB)
+the transport blocks correct
+the IP packets.
+
+In the case of an error, the retransmission occurs:
+in the sub-frame following the transmission, thanks to the acknowledgement system
+within 4ms after the transmission because the transmitter needs time to get prepared
+8ms later.
+
+The parallelized send and wait:
+is only implemented on the base station
+can lead to un-sequencings
+is handled by the RLC layer (which is above the MAC layer)
+allows several logical channels to be multiplexed
+allows the throughput to be increased up to 8 times.
+
+The MAC-PDU is a:
+RLC-SDU
+RLC-PDU
+transport block correct
+resource block.
+
+In the downlink, a MAC-PDU can (several answers expected):
+contain data intended for different terminals
+group data from different sources
+group data of different types
+group data from signaling protocols and some user data.

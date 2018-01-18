@@ -1,0 +1,104 @@
+﻿Hi.
+This week, we will focus on the radio interface of L. T. E.. We will see how information is transmitted by radio between the eNodeBs and the UEs.
+The physics of the transmission induces constraints that we have to handle.We also need to share the band-width between users of the same cell and to interface with the core network.
+To manage all that, the radio interface of L. T. E. is structured into several layers.Each video of this week will present one of these layers.Let’s start with the first one, the “physical layer”.The goal of this layer is to transfer binary messages
+between two points; namely an eNodeB and a UE.
+For that, L. T. E. uses modulation and error correction techniques.
+We will explain these notions.
+What is a modulation?
+As you know, radio relies on electromagnetic waves to transmit information.
+Waves can travel a long distance.
+But, they are subject to disturbance.
+For example, their amplitude can be modified or they can
+be subject to delays or to noise.
+But, as long as these disturbances remain limited, the
+receiver can detect that something has been sent.
+“Modulation” is a transmission technique that consists of
+using a high-frequency bearer to transmit a message.
+To do so, we modify the bearer; we say we “modulate” it,
+according to the information contained in the message to transmit.
+If the receiver is able to recognize these modifications
+then it can retrieve the message.
+L. T. E. can use several kinds of modulations.
+We will look at two of them to understand their
+differences and when to use each one.
+In L. T. E., the simplest modulation is Binary
+Phase Shift key-ing, or BPSK.
+As its name indicates, it operates on the phase of the bearer.
+To transmit a 0, we don’t modify the signal.
+But to transmit a 1, we modify the phase by a
+factor of Pi, which, in this case, is the same as taking
+the opposite of the signal.
+This plot represents the modulated signal transporting
+the information: 0,1,1,0.
+You see that the phase is modified
+every time the information changes and that it remains
+constant if the information does not change.
+This graphic is a representation of the states
+that the modulated signal can take.
+On this circle, the modulus represents the amplitude
+and the argument represents the phase.
+But we could have more than two phase states.
+This is what QPSK does.
+QPSK stands for Quaternary Phase Shift Key-ing.
+It enables four phase states.
+So we can transmit 2 bits at a time.
+For example we can take the convention that a phase of 
+Pi/2 is used to transmit the couple of bits (0,0).
+A phase of 3 Pi/2 corresponds to (0,1).
+And so on: 5 Pi/2 means (1,1) and 7 Pi/2 means (1,0).
+This notion is important.
+That’s why we gave it a name.
+We call a “symbol” the period of time during which the
+information transmitted remains constant.
+As you can see, in QPSK we can transmit 2 bits per symbol.
+Whereas, in BPSK, we only transmit a single bit per symbol.
+So, QPSK can transmit twice as much information as BPSK.
+It means that the data rate of QPSK is twice the one of BPSK.
+But, there’s no such thing as a free meal.
+So there is necessarily a tradeoff.
+Looking at these graphics, we see that in QPSK,
+the states are closer to each other than in BPSK.
+When disturbances occur, the states will
+drift from their initial position.
+And if the disturbances are really important, the states
+will overlap and the receiver will not retrieve the correct information.
+At this point, the thing to remember is that, to use an
+efficient modulation, we need a good quality channel.
+In other words: We always have to compromise between
+transmission speed and the error rate.
+But keep in mind that channel conditions are changing continuously.
+For that reason, L. T. E. has to adapt the modulation in real time.
+Now, let’s talk about errors.
+Errors are quite frequent in radio.
+For that, modern systems like
+L. T. E. make use of error correction.
+This is based on mathematical encoding which is outside
+the scope of this course. Simply put, the idea is to add
+redundant information when sending, to increase the
+chances of reconstructing the message upon reception.
+For example, this message has to be well understood.
+But an error can occur.
+And I don’t want that.
+So I will repeat it three times.
+So the receiver can identify where the error is and correct it.
+It does not always work; it uses up
+band-width, but it’s still quite effective.
+We call the ratio of the
+useful information over total  transmitted information “coding rate”.
+In L. T. E., this can vary between one third, for
+extensive correction, to almost 1 for nearly no correction.
+Up to now, we have seen that, depending on the propagation conditions,
+L. T. E. can use different modulations and different coding rates.
+The combination of a given modulation with a given coding
+rate is called Modulation Coding Scheme (or in short MCS).
+Since channel conditions are changing continuously and
+independently for each mobile,
+L. T. E. has to adapt the MCS of each mobile in real time.
+What are the important points of this lesson?
+First, to use efficient modulation, we need good propagation conditions.
+Otherwise, we have to switch to a more robust modulation.
+But in this case, the throughput will be lower.
+We can also modify the coding rate.
+Secondly, L. T. E. continuously adapts these parameters
+for each terminal in real time.

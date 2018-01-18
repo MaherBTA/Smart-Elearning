@@ -1,0 +1,17 @@
+Choose the correct suggestions.
+BPSK modulation is more sensitive to perturbations than QPSK,
+BPSK modulation is less sensitive to perturbations than QPSK,
+BPSK modulation provides a higher throughput (user bit rate) than QPSK,
+BPSK modulation provides a lower throughput (user bit rate) than QPSK.
+
+LTE includes an error correction system.
+
+In LTE, two users can use different modulations.
+
+Choose the number of bits per symbol in BPSK,
+1 bit / symbol,
+2 bits / symbol,
+3 bits / symbol,
+4 bits / symbol,
+6 bits / symbol,
+8 bits / symbol.

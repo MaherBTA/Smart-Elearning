@@ -1,0 +1,112 @@
+Up to now we have focused on what happens between an
+eNodeB and the UEs.
+In this video, we will see how this radio interface is
+connected to the core network and therefore with the rest
+of the world through the IP protocol.
+This is the role of the PDCP protocol which
+relies on the top of the radio interface protocol stack.
+Next, we’ll put in perspective all the principles we have
+seen this week to create a global view of the radio interface.
+PDCP stands for Packet Data Convergence Protocol.
+ It is implemented on top of
+every instance of R. L. C,
+except those working in Transparent Mode.
+It provides the interface with the core of the network,
+in other words, with the IP protocol for users’ data
+and with R. R. C for signalling messages.
+PDCP provides three types of service.
+To start: header compression.
+As you know, applications rely on protocol stacks and
+each protocol adds its own header.
+For example, VoIP data are typically 30 bytes long.
+They are encapsulated in RTP
+which adds a 12 bytes long header,
+then, they are encapsulated in UDP which adds 8 bytes,
+and finally in IPv6 which adds 40 bytes.
+so, the total length of the headers is 60 bytes.
+So, we are transmitting twice as much protocol data as useful data.
+These protocol data change very little from one packet to another.
+Hence the possibility of compression.
+To do this, L. T. E uses a standard Internet protocol
+called ROHC or Robust Header Compression.
+It is no coincidence that L. T. E re-uses
+protocols from the Internet.
+Indeed, one goal of L. T. E.
+ is to reuse when possible, existing standards,
+notably for the core of its network.
+Another role of PDCP is to avoid packet loss
+or the de-sequencing that can happen during handovers.
+We saw that R. L. C manages retransmissions and
+re-sequences, but only within the cell.
+With PDCP, when changing cell,
+the old eNodeB can inform the new one about the status of
+the current transmissions and can forward data waiting to be transmitted.
+The last function of PDCP is about security.
+Obviously, the radio link is particularly vulnerable
+in terms of security.
+Therefore, PDCP enables data cyphering to guarantee confidentiality.
+And it offers an integrity
+control system to verify that signalling data were
+not modified during transmission.
+Not all PDCP functions are used in every case.
+Here is a summary.
+Header compression, for example, will only work for data encapsulated in IP.
+So it can’t be implemented for  R. R. C control messages.
+Handover-related loss prevention only works for R. L. C instances
+working in Acknowledged Mode.
+Cyphering is always possible.
+It is optional but strongly recommended.
+Finally, integrity control is only possible for control messages.
+But that is where it is the most important, because if
+the system considers a corrupted control message, it is a
+direct security flaw for L. T. E.
+And if applications need integrity control, they can
+implement it by themselves.
+This chapter about the radio interface is about to finish.
+Let’s sum up what we have seen this week.
+This diagram presents a synthesized view of the radio
+interface protocol stack.
+Going from the bottom to the top.
+We first see the physical layer.
+It takes care of error correction and modulation.
+Above, the MAC layer controls independently for each terminal the
+choice of the modulation used by physical layer.
+This defines the transmission capacity.
+On the eNodeB, the MAC layer ensures resource allocation
+for both the uplink and downlink.
+It also takes care of low-level transmission reliability
+with a repetition mechanism called H. A. R. Q.
+ And builds the transport blocks by
+multiplexing the data from different logical channels.
+The R. L. C layer proposes optional re-sequencing,
+segmentation, and retransmission services.
+Several R. L. C instances run in parallel, corresponding to different
+applications and different levels of service.
+Finally, the PDCP layer implements
+the interface with the core network; under IP for useful
+data, and R. R. C for signalling messages.
+It proposes optional services of header compression,
+handover mitigation and security.
+This last diagram represents the path followed by data packets.
+User data on IP are shown in pink
+and an R. R. C control message is shown in blue.
+It’s more of a reference diagram but let’s point out the
+most interesting things.
+At the PDCP level, we see
+the header compression that applies to the IP
+messages and not to R. R. C.
+At the R. L. C level, the two pink
+messages belong to the same R. L. C instance;
+ they have been concatenated  into the same R. L. C-PDU.
+This is not the case for the control message.
+At the MAC level, we merge the MAC-SDU from the two R. L. C instances.
+We add headers to create a
+transport block that will be delivered to the physical layer.
+On the physical layer, the RNTI appears in a dotted box.
+It’s because it is not transmitted with the data,
+but supplied implicitly through the allocation table.
+Finally, this slide summaries the acronyms that have been used this week.
+This is the end of this chapter about the radio interface.
+Thank you for watching.
+We’ll be in touch on the forum!
+Bye!

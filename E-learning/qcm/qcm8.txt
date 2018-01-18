@@ -1,0 +1,15 @@
+We consider the configuration of the illustration above with a UE, the eNodeB, SGW and PGW of a mobile operator and the intermediate routers. The mobile terminal (i.e. the UE) with the address 193.137.99.99 received data from a server with the address 192.108.117.241. In every question, we consider a packet transmitted by the server to the UE.
+
+What is the destination address in the IP packet circulating on the Internet.
+
+
+This packet is routed,
+directly to the UE without crossing any intermediate device,
+to the PGW,
+to the router with the address.
+
+How is this packet transported to the mobile terminal,
+the routing tables of all the core network devices (eNB, SGW, PGW, routers) are modified to make sure the packet is correctly routed to the location of the terminal,
+the packet is systematically transmitted to all the eNodeBs via a flooding process to make sure it reaches the eNB where the terminal is located,
+the packet is placed in another packet to be transmitted from the PGW to the SGW then to the eNB where the terminal is located,
+the packet is placed in another packet to be directly transmitted from the PGW to the eNB where the terminal is located.

@@ -1,0 +1,14 @@
+Company
+Educational Institution
+Artist
+Athlete
+Office Holder
+MeanOfTransportation
+Building
+NaturalPlace
+Village
+Animal
+Plant
+Album
+Film
+WrittenWork

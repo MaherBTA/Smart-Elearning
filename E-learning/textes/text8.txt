@@ -1,0 +1,76 @@
+By definition of a mobile network, I can be anywhere in the network.
+ How can data packets be transmitted to my
+terminal, to the cell where I am?
+This is the question we are going to answer in this video.
+To understand this question, we need to go back to IP networks.
+An IP network is firstly an
+interconnection of different
+sub-networks, represented by different
+colours on this slide.
+A sub-network is characterized by a prefix.
+Each machine is necessarily on a sub-network
+and its address is composed of a prefix which is
+specific to that sub-network and an interface Identifier or ID.
+Each IP packet that is transferred from one machine to another one
+has both a source address and a destination address.
+Both addresses contain the prefix
+and the interface ID.
+Inside an interconnection network, for example the
+Internet, only the prefix is used for routing.
+In our example, prefix 2 is analyzed
+to route the packet towards the correct sub-network.
+If we consider mobile networks, we have a problem when a
+machine is moved, from one sub-network
+for instance sub-network 2 to sub-network 1.
+The designers of mobile systems when they
+standardized 4G networks decided to associate a
+prefix to the Packet Gateway.
+So, when I consult a server, for
+instance I watch an excellent video on 4G networks on my
+smart phone, the packets created by the server contain
+the destination address of my mobile terminal, that is
+the UE IP address, which includes a prefix specific to the Packet Gateway.
+This IP packet
+is thus simply routed towards the Packet Gateway.
+When we want to transmit the packet to the correct terminal,
+we will first transmit it to the Serving Gateway, placing it in another IP packet.
+This IP packet will have the IP address of
+the Serving Gateway as its destination address.
+The IP packet is therefore routed
+from the P-Gateway to the Serving Gateway.
+Putting one IP packet in another IP packet is called “encapsulation.”
+The same encapsulation
+principle is used between the Serving Gateway and the eNode B.
+Here, we will have the IP address of the eNode B as its destination address.
+On the radio interface, as we saw in week 3, the
+user’s IP packet is put in a transport block.
+This transport block is
+sent to a specific RNTI, for Radio Network Temporary
+Identifier that corresponds to the mobile terminal.
+Let’s look again at what happens at the core of a 4G network.
+Between the Serving Gateway and the Packet
+Gateway, we have an IP network made up of different routers.
+Independently of the interconnection
+of these routers, placing the IP packet intended
+for the terminal in another IP packet that contains the address
+ of the Serving Gateway, means that this IP packet is
+routed automatically to the Serving Gateway.
+So, every packet that leaves the Packet Gateway is sent
+towards the Serving Gateway.
+In other words, we have a mechanism that acts like a tunnel,
+a mandatory passage so to speak, between the Packet
+Gateway and the Serving Gateway.
+ You won’t be surprised that we call this principle, “tunneling.”
+The same principle is used
+between the Serving Gateway and the eNode B;
+ we have therefore a second tunnel.
+ And then, transmission on the radio interface.
+In a few words to make it clear, IP packets
+that should be transmitted to a mobile terminal are
+systematically routed to the P-Gateway.
+They are then put in other IP packets within the 4G core network:
+this operation is called encapsulation.
+These packets are transmitted hop-by-hop
+to the terminal as if they were in a “tunnel”
+from the P-Gateway to the S-Gateway and from the S-Gateway to
+the eNodeB where the mobile is.

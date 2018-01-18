@@ -1,0 +1,121 @@
+How can multiple users operate on the same frequency?
+Radio is like speaking in a meeting.
+If everyone speaks at the same time, no one understands anything.
+With radio, it’s the same thing.
+When several pieces of equipment transmit at the same
+time, interference is likely.
+All radio systems have to find a solution to  share the resource between users.
+In this video, we will see how L. T. E. does this.
+And, at the end, we will
+ get a global view of the transmission chain.
+Radio resources are rare and expensive.
+And users don’t need to communicate continuously.
+So, it’s preferable to allocate resources to users only
+when they need them.
+L. T. E. operates on a band of the radio spectrum between
+a minimum and a maximum frequency.
+L. T. E. ’s band-witdth can vary  from 1.4 to 20 Megahertz.
+ It is divided into sub-carriers
+and each sub-carriers can be allocated to a different user.
+These frequencies are periodically re-allocated, based on
+the evolution of users needs.
+So, L. T. E. shares the resources  both in frequency and in time.
+In the previous video, we saw that the smallest piece of
+information produced by a modulation is a symbol.
+Each symbol constitutes a “Resource Element”.
+A Resource Element occupies 15 kHz
+of frequency space and lasts 66 microseconds.
+Because it is so small, it is complicated to allocate
+these resources one by one.
+Therefore, they are grouped in what  is called “Resource Blocks”.
+A Resource Block
+lasts half a millisecond.
+It consists of 84 Resource Elements
+spread over 12 sub-carriers.
+One resource block occupies 180 kHz.
+The number of available Resource Blocks varies from 6
+when operating on a 1.4 MHz wide band
+ to one hundred when working  with a 20 MHz large band.
+Every millisecond, L. T. E. re-allocates
+ the Resource Blocks to the  users that need to communicate.
+Since a Resource Block lasts half a millisecond,
+this means that Resource Blocks are allocated by pairs.
+The pattern formed by the Resource Blocks during a 1ms
+period of time is called a “sub-frame”.
+It’s important to THAT 1 millisecond.
+In a way, it’s the pulse of L. T. E, its heartbeat.
+And all allocation mechanisms of L. T. E.
+are based on this 1ms period or on a multiple of it.
+To sum up: the available spectrum is cut
+into Resource Blocks that are allocated every millisecond.
+These Resource Blocks ares allocated to this phone in yellow.
+The pattern formed every millisecond by all
+the resource blocks is called a sub-frame.
+Each resource block contains 84 Resource Elements.
+Each one transport one symbol.
+Howeve, in the resource blocks, some resource
+elements are reserved for L. T. E. internal control.
+On this graphic, we’ve colored them in purple or red.
+We’ll come back to that when we talk about physical channels.
+For the moment, just remember that only resource elements
+in white can be used to transmit messages.
+When a device needs to transmit data, it is provided with
+one or several of Resource Blocks for the next 1ms.
+Should this resource not be enough, additional resources
+will be allocated on next sub-frames.
+This allocation is managed by the eNode B.
+We will see how in the next videos.
+The amount of data a device can send during a
+given sub-frame is called a “Transport Bloc”.
+Its size depends on the number of resource blocks
+available for this user.
+It also depends on the modulation, or more precisely, on
+the MCS used with this user.
+Obviously, the more efficient the modulation, the
+bigger the transport block.
+This table gives the size of transport blocks in bits,
+depending on the MCS in use and the
+number of resource blocks allocated.
+It's a lot of numbers, but don't panic. We'll just make a few observations.
+And come back to it during the exercises.
+Firstly, it is easy to transpose the transport block size into throughput.
+Indeed, there are one thousand sub-frames per second.
+So, all we need to do is multiply the figures of this table
+by one thousand to get the throughput.
+Here, we can see that the maximum achievable throughput
+is 75 Megabits per second.
+Secondly: The size of transport blocks varies widely,
+ranging from 16 bits
+when using only one Resource Block and an MCS of 0
+to just over 75 kilobits
+when using all the Resource Blocks with an MCS of 28.
+Lastly: the same transport block size can be found in several cells.
+For example, with this value of 256 that we’ve colored green.
+This property is interesting if the modulation changes
+after a transport block was generated.
+For example, imagine that we were allocated 2 Resource Blocks
+to transmit a transport block of 256
+bits using an MCS of 8.
+If conditions get worse and we now have to use an MCS of 4.
+We can keep the  same transport block
+and we just have ask for 4 Resource Blocks instead of 2.
+In conclusion: L. T. E. shares resources by both time and frequency.
+A Resource Element corresponds to one symbol.
+To facilitate allocation, L. T. E. defines Resource Blocks
+which are groups of 84 Resource Elements.
+At every millisecond, the eNodeB defines the size of the
+transport block for each device on the current sub-frame.
+As promised, we now have a global view of the transmission chain.
+First, we fill a transport block of the  size that was allocated to us.
+We did not discuss that yet, but
+we add a cyclic redundancy check, or CRC, to let the
+receiver check whether received data are correct.
+The packet then passes through the coding stage which
+adds redundancy to enable error correction.
+The flow of bits is then modulated by a digital
+modulation to produce symbols.
+These symbols will be inserted in one the the Resource
+Blocks that have been allocated to us on the current sub-frame.
+This process repeats every millisecond.
+In the next video, we will see how
+theses resources are allocated between different users.

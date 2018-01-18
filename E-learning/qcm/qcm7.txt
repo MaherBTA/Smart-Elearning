@@ -1,0 +1,27 @@
+PDCP provides services,
+for security,
+for segmentation/assembly,
+for error detection,
+for header compression,
+for error correction,
+for resource allocation,
+to handle problems linked to handovers.
+
+At which level of the radio interface is security handled.
+
+At which level of the radio interface is error correction handled.
+
+At which level of the radio interface is resource allocation handled.
+
+At which level of the radio interface is packet segmentation and assembly handled.
+
+Which level of the radio interface provides services to help transition from one cell to another.
+
+Which layer builds transport blocks.
+
+
+Which layers have retransmission functions,
+PDCP,
+RLC,
+MAC,
+PHY. 

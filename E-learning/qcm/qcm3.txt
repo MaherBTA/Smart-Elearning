@@ -1,0 +1,34 @@
+In LTE, the radio resource allocation is handled by:
+The core network 
+eNodeBs correct 
+Terminals 
+jointly by eNodeBs and Terminals. 
+
+Devices that have nothing to transmit use as much resources as the others
+True
+False.
+
+On the downlink, only the base station transmits
+True 
+False.
+
+The eNB can transmit on the uplink (from the UEs to the eNB).
+True
+False.
+
+The RNTI 
+Is a short address calculated from the IMSI 
+Is determined by the UE 
+Is determined by the eNB 
+Is a way to uniquely identify a terminal within a cell.
+
+
+The base station publishes:
+The allocation table of the downlink for the current sub-frame 
+The allocation table of the downlink 4 sub-frames in advance 
+The allocation table of the uplink for the current sub-frame 
+The allocation table of the uplink 4 sub-frames in advance.
+
+If they only have a small amount of data to send, terminals can transmit on the control channel of the uplink 
+True 
+False.

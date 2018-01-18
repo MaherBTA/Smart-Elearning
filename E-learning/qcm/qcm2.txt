@@ -1,0 +1,26 @@
+A resource element (RE) contains,
+One symbol,
+A variable number of symbols (it depends on the chosen modulation),
+One bit,
+A variable number of bits (it depends on the chosen modulation).
+
+A Resource Block (RB) typically contains,
+7 resource elements (RE),
+12 resource elements (RE),
+84 resource elements (RE),
+A variable number of resource elements (RE). 
+
+In LTE, resources are allocated,
+every 0.5ms,
+every 1ms correct,
+for a fixed duration upon the connection of a UE.
+
+The transmission duration of a transport block is,
+Always equal to or less than 0.5ms,
+Always equal to or less than 1ms correct,
+Can be over 1ms if the size of the block is important. 
+
+The size of the transport blocks (number of bits per transport block),
+Is fixed,
+Can vary depending on the modulation used,
+Can vary depending on the number of available resource blocks.

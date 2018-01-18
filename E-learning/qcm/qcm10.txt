@@ -1,0 +1,22 @@
+Each tunnel is identified,
+by a unique number in the network,
+by a pair of numbers allocated by the terminal and the HSS,
+by a pair of numbers each allocated by the device at the end of this tunnel.
+
+The TEID (Tunnel End Point Identifier)
+is coded over 3 bits,
+is coded over 8 bits,
+is coded over 32 bits,
+is coded over 128 bits.
+
+The TEID (Tunnel EndPoint Identifier),
+is added to the IP header,
+replaces the source IP address in the IP header,
+is added to the UDP header,
+is placed in the GTP header,
+is placed at the end of the packet at the software level.
+
+Consider a packet transmitted in a tunnel from the SGW to the PGW. The TEID that is placed in the GTP header,
+is the one allocated by a central entity, the MME in this case,
+is the one allocated by the SGW,
+is the one allocated by the PGW.

@@ -1,0 +1,82 @@
+Which protocols are used to exchange data packets
+between nodes of a 4G network?
+We know that IP is used but is it the only protocol?
+Just like Robinson Crusoe alone on his island?
+ That is the question we are going to answer in this video.
+Remember encapsulation :
+when a packet that arrives from an  external network, for example, the Internet
+it is taken up by the P Gateway, then placed in another IP packet
+that is sent to the S Gateway
+and once there, the S Gateway takes it inside and places
+it in another packet sent to the eNode B.
+Between the P Gateway and the S Gateway, we have an IP network.
+If we take the entire stack of IP protocols,
+we get the idea, over IP, of a transport protocol
+between the endpoints.
+At this level, the endpoints are
+the P Gateway and S Gateway.
+There are two well-known transport protocols:
+TCP and UDP. TCP is used a lot, but is relatively
+complex due to reliability mechanisms such as the
+retransmission of lost packets
+and also a complex congestion control.
+UDP has the advantage of being much simpler.
+So, it’s UDP that was chosen  as the transport protocol.
+If we need reliability and retransmission mechanisms,
+these will be placed over the
+user IP protocol, in other words, between the
+server and the mobile terminal:
+at that point, using UDP is a very good choice.
+So, UDP is used between the Serving Gateway and the
+Packet Gateway and between the Serving Gateway and the eNode B.
+The moment you speak of a protocol, you’re speaking
+of headers that correspond to this protocol.
+So, IP packets include a
+source address (here the address of the P Gateway),
+a destination address (here the  address of the Serving Gateway)
+and finally the UDP header with the port numbers.
+We could easily say, “Let’s put our user IP
+packet directly inside the IP datagram.”
+But we know that there are several variations of the
+IP protocol: IPv 4, IPv 6, and so on;
+we want to keep the possibility of evolution and permit
+the transport of other protocols.
+To do this, we will develop an
+additional protocol that’s called GTP: GPRS Tunneling Protocol.
+The idea is to add a format that
+allows consistent processing for all
+user protocols, whether they be IPv4 IPv6 or any other.
+ Therefore, we have different levels of headers, and on this diagram
+we see the level of the additional header at the GTP layer.
+We’ll explain in the next video what is
+in this GTP header.
+Now, if we look at the
+whole protocol stack, we have, between the Serving
+Gateway and the P Gateway, an IP network.
+In accordance with the principles
+of IP, the physical layer (1) and the data link layer (2)
+can be anything.
+The only thing that counts is having IP on the Serving Gateway
+and the Packet Gateway.
+Above the IP layer we have UDP, above UDP, GTP.
+To make it clear that we consider user
+packets, for example the packets that contain the video
+stream if I’m watching a video  on my smart phone,
+we talk of GTP-U, U stands for “user plane”.
+Above GTP-U we find the user IP.
+If we consider everything, we have the protocol stack
+that we saw earlier between the Serving Gateway and the
+Packet Gateway, and we have the same protocol
+stack between the eNode B
+and the Serving Gateway.
+GTP-U above UDP, above IP
+and above the physical and data link layers.
+We thus find GTP-U on the S1-U
+interface as well as on the S5/S8 interface.
+To summarize, user IP packets are put in GTP-U packets, which
+are themselves put in UDP packets
+transported in IP packets!
+The protocol stack between the S-Gateway and the
+P-Gateway and between the S- Gateway and the eNodeB
+includes IP/UDP/GTP-U/IP.
+In the end, IP is not at all alone – unlike Robinson Crusoe.

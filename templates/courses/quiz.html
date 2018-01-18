@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+  <!-- Chapter css is in course core css -->
+  <link href="{% static "css/course.css" %}" rel="stylesheet"/>
+  <script src="{% static "js/tinymce/jquery.tinymce.min.js" %}"></script>
+  <script src="{% static "js/tinymce/tinymce.min.js" %}"></script>
+  <script>tinymce.init({
+    selector: 'textarea', resize: false
+  });
+  </script>
+  {% include 'breadcrumb.html' %}
+
+
+<h2 align="center">{{ quiz.title }}</h2>
+<p>{{ quiz.description }}</p>
+<br>
+  <div class="container">
+   <h3>Add Question</h3>
+  	<br>
+    <div class="row">
+       <div class="col-md-5">
+        <form method='POST' action=''>
+          {% csrf_token %}
+          {{ add_question_form|crispy }}
+          <input class='btn btn-primary' type='submit' name="add_answer" value='Add Question'/>
+        </form>
+      </div>  
+     <div class="col-md-7">
+      {% if selected_question %}
+        <table class="table table-bordered generic-table scroll">
+          <thead>
+          <tr>
+            <th>Question</th>
+            <th>Type</th>
+            <th>Level</th>
+            <th>Show Answer</th>
+          </tr>
+          </thead>
+          {% for instance in queryset_question %}
+            <tr>
+              <td class="col-md-8">{{ instance.content|safe }}</td>
+              <td class="col-md-1">{{ instance.type }}</td>
+              <td class="col-md-1">{{ instance.level }}</td>
+              <td class="col-md-1">
+                <a href="{% url 'quiz' quiz.id instance.id None %}" >
+                <input class='btn btn-primary ' type="submit" value='Show Answers'/>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+      
+      {% if selected_question %}
+        <table class="table table-bordered generic-table scroll">
+          <thead>
+          <tr>
+            <th >
+            <div>Answers
+                <input onclick='addAnswer()' style="float: right;" class='btn btn-primary btn-sm' type='submit' value='Add Answer'/>
+            </div>
+            </th>
+          </tr>
+          </thead>
+          {% for instance in queryset_answers %}
+            <tr>
+              <td class="col-md-8">{{ instance.answer|safe }}
+                <a href=""  style="float: right;">
+                  <input class='btn btn-primary btn-sm' type='submit' value='Delete'/>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+   </div>
+   </div>
+  </div>
+<script>
+function addAnswer(){
+	var answer = prompt("Please enter an Answer");
+	if (answer != null) {
+		var url = '/courses/professor/quiz/edit/'+'{{ quiz.id}}'+'/'+'{{selected_question}}'+'/'+ answer+'/';
+		window.location.replace(url);
+	}
+}
+</script>
+{% endblock %}
+
+
