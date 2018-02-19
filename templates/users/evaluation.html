@@ -81,7 +81,15 @@
 	  }
   	}
   $( document ).ready(function() {
-	  $("#question_{{ predicted_question }}").show();
+	  
+		if('{{ quiz_end }}'=='true')
+		{
+			$( "#quiz_ended" ).html( "Quiz Ended With Progress (stype, slevel, ptype, plevel, success) = "+{{ progress }} );
+			$("#quiz_ended").show();
+
+		}else{
+			$("#question_{{ predicted_question }}").show();
+		}
 	});
   
   </script>
@@ -134,6 +142,9 @@
   </form>
   </div>
   <div class="col-md-7">
+  <div style="color: #29a329">
+  	<h3 style="display: none;" id='quiz_ended'></h3>
+  </div>
 	<form style="text-align: center;" name="quiz" id='questionForm'>
 		{% for instance in question_answers %}
 		<br>
@@ -143,7 +154,7 @@
 			<h2>{{ instance.0.content|safe }}</h2> 
 			<ul style="margin-top: 1pt;">
 			{% for answer in instance.1 %}
-			  <li><input value="{{ answer.id }}" name='answer_{{ instance.0.id }}' type="radio">{{ answer.answer }}></li>
+			  <li><input value="{{ answer.id }}" name='answer_{{ instance.0.id }}' type="radio">{{ answer.answer }}</li>
 			{% endfor %}
 			 <input value="Submit Answer" onclick="submitAnswer('{{ instance.0.correctAnswer }}','{{ instance.0.id }}')" type='button'>
 			 <input value="Next Question" onclick="nextQuestion('{{ instance.0.id }}','{{ instance.0.correctAnswer }}','{{ instance.0.type }}','{{ instance.0.level }}')" type='button'>

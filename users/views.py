@@ -230,25 +230,50 @@ def evaluation(request, quiz_id=None):
     
     return render(request, "users/evaluation.html", context)
 
+
 @login_required
 def evaluation_next(request, stype=None, slevel=None, ptype=None, plevel=None, success=None, quiz_id=None):
+    
+    if 'answered_questions' not in request.session:
+        request.session['answered_questions'] = []
+        answered_questions = []
+    else:
+        answered_questions = request.session['answered_questions']
+        
     progress=[float(stype),float(slevel),float(ptype),float(plevel),float(success)]
     settings=[float(stype),float(slevel)]
-    predicted_question=get_next_question(progress)
+    predictions=get_next_question(progress)
     quiz = Quiz.objects.filter(id=quiz_id)
     questions = Question.objects.filter(quiz=quiz_id)
     question_answers=[]
     for question in questions :
         list = Answers.objects.filter(question=question.id)
         question_answers.append((question,list))
-    context = {
-            "quiz": quiz,
-            "progress":[progress],
-             "settings":settings,
-            "questions": questions,
-            "quiz_id":quiz_id,
-            "question_answers": question_answers,
-            "predicted_question":predicted_question[0]
-        }
-    
+    ids=[x.id for x in questions]
+    remaining_ids=[x for x in ids if x not in answered_questions]
+    if len(remaining_ids)>0:
+        predicted_question= min(remaining_ids, key=lambda x:abs(x-predictions[0]))
+        request.session['answered_questions'] = answered_questions+[predicted_question]
+        context = {
+                "quiz": quiz,
+                "progress":[progress],
+                 "settings":settings,
+                "questions": questions,
+                "quiz_id":quiz_id,
+                "question_answers": question_answers,
+                "predicted_question":predicted_question,
+                "quiz_end":"false"
+            }
+    else:
+        request.session['answered_questions'] = []
+        context = {
+                "quiz": quiz,
+                "progress":[progress],
+                 "settings":settings,
+                "questions": questions,
+                "quiz_id":quiz_id,
+                "question_answers": question_answers,
+                "predicted_question":-1,
+                "quiz_end":"true"
+            }
     return render(request, "users/evaluation.html", context)
