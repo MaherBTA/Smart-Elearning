@@ -350,6 +350,16 @@ def add_students(request, student_id, course_name=None):
     course.students.add(student)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def edit_question(request,question_id, correct_answer_id):
+    question = Question.objects.get(id=question_id)
+    print('tttttttttttt')
+    print(correct_answer_id)
+    question.correctAnswer=correct_answer_id
+    print(question.correctAnswer)
+    question.save()
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 def add_question(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

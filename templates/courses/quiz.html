@@ -68,8 +68,9 @@
           {% for instance in queryset_answers %}
             <tr>
               <td class="col-md-8">{{ instance.answer|safe }}
-                <a href=""  style="float: right;">
+                <a style="float: right;">
                   <input class='btn btn-primary btn-sm' type='submit' value='Delete'/>
+               	  <input value="{{instance.id}}" name="correctAnswer" onclick="correctAnswer()" type="radio">
                 </a>
               </td>
             </tr>
@@ -86,6 +87,18 @@ function addAnswer(){
 		var url = '/courses/professor/quiz/edit/'+'{{ quiz.id}}'+'/'+'{{selected_question}}'+'/'+ answer+'/';
 		window.location.replace(url);
 	}
+}
+function correctAnswer(){
+	console.log({{selected_question}})
+ 	var url = '/courses/professor/question/'+'{{selected_question}}'+'/'+$('input[name=correctAnswer]:checked').val();
+ 	console.log(url)
+	$.ajax({
+	    type: "GET",
+	    url: url,
+	   success: function(data){
+	         alert('Correct Answer Is Saved');         
+	     }
+	});
 }
 </script>
 {% endblock %}

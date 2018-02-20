@@ -96,4 +96,10 @@ class AddAnswerForm(forms.ModelForm):
 class AddQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['figure', 'level', 'type', 'content', 'explanation']
+        fields = ['figure', 'level', 'type', 'content', 'explanation','correctAnswer']
+
+
+class EditQuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['correctAnswer']
