@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^student/(?P<quiz_id>[\d ]+)', user_views.evaluation,
         name='evaluation'),     
 
+    url(r'^professor/deleteAnswer/(?P<answer_id>[\d ]+)', course_views.delete_answer, name='delete_answer'),   
+
     url(r'^professor/question/(?P<question_id>[\d ]+)/(?P<correct_answer_id>[\d ]+)', course_views.edit_question, name='edit_question'),   
                
     url(r'^professor/(?P<course_name>[\w ]+)/$', course_views.course, name='professor_course'),

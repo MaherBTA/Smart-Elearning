@@ -142,26 +142,10 @@ def quiz(request, quiz_id=None, question_id=None, answer=None):
     return render(request, "courses/quiz.html", context)
 
 @user_passes_test(lambda user: user.is_professor)
-def delete_answer(request, quiz_id=None, question_id=None, answer_id=None):
-    quiz = Quiz.objects.get(id=quiz_id)
-    add_question_form = AddQuestionForm(request.POST or None)
+def delete_answer(request, answer_id):
+    print('delete_answer'+answer_id)
     Answers.objects.filter(id=answer_id).delete()
-    
-    queryset_question = Question.objects.filter(quiz_id=quiz_id)
-    queryset_answers=[]
-    if question_id!='None':
-        queryset_answers = Answers.objects.filter(question_id=question_id)
-        
-    context = {
-        "quiz": quiz,
-        "add_question_form": add_question_form,
-        "queryset_question": queryset_question,
-        "queryset_answers": queryset_answers,
-        "shown_question":question_id
-    }
-        
-    return render(request, "courses/quiz.html", context)
-
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @user_passes_test(lambda user: user.is_professor)
 def delete_course(request, course_name=None):
@@ -352,7 +336,6 @@ def add_students(request, student_id, course_name=None):
 
 def edit_question(request,question_id, correct_answer_id):
     question = Question.objects.get(id=question_id)
-    print('tttttttttttt')
     print(correct_answer_id)
     question.correctAnswer=correct_answer_id
     print(question.correctAnswer)
