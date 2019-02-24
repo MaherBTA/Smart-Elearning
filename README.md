@@ -7,8 +7,8 @@ E-Learning was designed to provide pleasant experience for users.
 Assuming you use virtualenv, follow these steps to download and run the
 e-learning application in this directory:
 
-    $ git clone https://github.com/MaherBTA/Smart_Elearning
-    $ cd Smart_Elearning
+    $ git clone https://github.com/MaherBTA/e-learning
+    $ cd e-learning
     $ virtualenv -p /usr/bin/python3 py3env
     $ source py3env/bin/activate
     $ pip3 install -r requirements
